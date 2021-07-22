@@ -7,11 +7,12 @@
     <title>Studio X</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
-
+   
 </head>
 
-<body id="viewport">
-<main id="content">
+<body>
+<div id="viewport">
+  <div id="scroll-container">
     <!-- Navigation start -->
     <div class="nav-bar">
         <div class="container">
@@ -72,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="section3-after"><img src="images/06-min.jpg">aL</div>
+        <div class="section3-after"><img class="sec-afi" src="images/06-min.jpg"><span class="sec-afh">aL</span></div>
     </section>
     <!-- section 3 end-->
 
@@ -83,7 +84,7 @@
             <div class="row">
                 <div class="container-inner">
                     <div class="col6">
-                        <h1 class="sub-head">Our Approach</h1>
+                        <h1 class="sub-head2">Our Approach</h1>
                     </div>
                     <div class="col6">
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
@@ -98,7 +99,7 @@
                 </div>
             </div>
         </div>
-        <div class="section4-after"><img src="images/06-min.jpg">Appr</div>
+        <div class="section4-after"><img class="sec-afi-4" src="images/06-min.jpg"><span class="sec-afh-4">Approach</span></div>
     </section>
     <!-- section 4 end-->
 
@@ -123,8 +124,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="section5-before"><span>About</span></div>
-                <div class="section5-after"><img src="images/team6.png"><span>sU</span></div>
+                <div class="section5-before"><span class="sec5-head1">About</span></div>
+                <div class="section5-after"><img class="sec5-img" src="images/team6.png"><span class="sec5-head2">sU</span></div>
             </div>
         </div>
     </section>
@@ -138,7 +139,14 @@
         </div>
     </section>
     <!-- section 6 end-->
-
+    <section class='spacer'>
+          <h1 id="scrollingText"> 
+            We do a little Trolling we do a little Scrolling we do a little Trolling we do a little Scrolling 
+          </h1>
+          <div class="imageWrapper">
+            <img style="width:100%; height:100%; object-fit:cover" src="images/08.jpg" />
+          </div>
+     </section>
     <!-- section 7 -->
     <section class="section3">
         <div class="container">
@@ -288,10 +296,14 @@
         </div>
         </section>
         <!-- section 10 end-->
-</main>
+</div>
+</div>
 </body>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/gsap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/ScrollTrigger.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/ScrollToPlugin.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
-<script src="js/main.js"></script>
-<srcipt src="https://unpkg.co/gsap@3/dist/gsap.min.js"></srcipt>
-<srcipt src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></srcipt>
 </html>
+
+

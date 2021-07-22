@@ -1,92 +1,197 @@
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-/* 
-Setup: wrap your content <div> in another <div> that will serve as the viewport.
-Call this function FIRST (before you create your ScrollTriggers); it sets the 
-default "scroller" for you (otherwise it'd be the window/body, but it should be 
-the content <div>) 
-*/
-smoothScroll("#content");
+let con_height = document.querySelector("#scroll-container");
 
-// pin each box for 300px when they hit the top
-gsap.utils.toArray(".box").forEach(box => {
-  ScrollTrigger.create({
-    trigger: box,
-    pin: true,
+let height;
+function setHeight() {
+  height = con_height.clientHeight;
+  document.body.style.height = height + "px";
+}
+ScrollTrigger.addEventListener("refreshInit", setHeight);
+
+// smooth scrolling container
+gsap.to(con_height, {
+  y: () => -(height - document.documentElement.clientHeight),
+  ease: "none",
+  scrollTrigger: {
+    trigger: document.body,
     start: "top top",
-    end: "+=300"
-  });
+    end: "bottom bottom",
+    scrub: 1,
+    invalidateOnRefresh: true
+  }
 });
 
+// Element Animation
 
-
-
-
-// this is the helper function that sets it all up. Pass in the content <div> and then the wrapping viewport <div> (can be the elements or selector text). It also sets the default "scroller" to the content so you don't have to do that on all your ScrollTriggers.
-function smoothScroll(content, viewport, smoothness) {
-  content = gsap.utils.toArray(content)[0];
-  smoothness = smoothness || 1;
-
-  gsap.set(viewport || content.parentNode, {overflow: "hidden", position: "fixed", height: "100%", width: "100%", top: 0, left: 0, right: 0, bottom: 0});
-  gsap.set(content, {overflow: "visible", width: "100%"});
-
-  let getProp = gsap.getProperty(content),
-    setProp = gsap.quickSetter(content, "y", "px"),
-    setScroll = ScrollTrigger.getScrollFunc(window),
-    removeScroll = () => content.style.overflow = "visible",
-    killScrub = trigger => {
-      let scrub = trigger.getTween ? trigger.getTween() : gsap.getTweensOf(trigger.animation)[0]; // getTween() was added in 3.6.2
-      scrub && scrub.kill();
-      trigger.animation.progress(trigger.progress);
-    },
-    height, isProxyScrolling;
-
-  function onResize() {
-    height = content.clientHeight;
-    content.style.overflow = "visible"
-    document.body.style.height = height + "px";
+let tl = gsap.timeline();
+tl.to('#scrollingText', {
+  xPercent:15,
+  scrollTrigger:{
+    trigger:"#scrollingText",
+    scrub:1
   }
-  onResize();
-  ScrollTrigger.addEventListener("refreshInit", onResize);
-  ScrollTrigger.addEventListener("refresh", () => {
-    removeScroll();
-    requestAnimationFrame(removeScroll);
-  })
-  ScrollTrigger.defaults({scroller: content});
-  ScrollTrigger.prototype.update = p => p; // works around an issue in ScrollTrigger 3.6.1 and earlier (fixed in 3.6.2, so this line could be deleted if you're using 3.6.2 or later)
+});
 
-  ScrollTrigger.scrollerProxy(content, {
-    scrollTop(value) {
-      if (arguments.length) {
-        isProxyScrolling = true; // otherwise, if snapping was applied (or anything that attempted to SET the scroll proxy's scroll position), we'd set the scroll here which would then (on the next tick) update the content tween/ScrollTrigger which would try to smoothly animate to that new value, thus the scrub tween would impede the progress. So we use this flag to respond accordingly in the ScrollTrigger's onUpdate and effectively force the scrub to its end immediately.
-        setProp(-value);
-        setScroll(value);
-        return;
-      }
-      return -getProp("y");
-    },
-    getBoundingClientRect() {
-      return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
-    }
-  });
+let tl2 = gsap.timeline();
+tl2.to("#scrollingText", {
+  x:1000,
+  duration:50,
+  repeat:-1,
+  ease:'linear'
+});
 
-  return ScrollTrigger.create({
-    animation: gsap.fromTo(content, {y:0}, {
-      y: () => document.documentElement.clientHeight - height,
-      ease: "none",
-      onUpdate: ScrollTrigger.update
-    }),
-    scroller: window,
-    invalidateOnRefresh: true,
-    start: 0,
-    end: () => height - document.documentElement.clientHeight,
-    scrub: smoothness,
-    onUpdate: self => {
-      if (isProxyScrolling) {
-        killScrub(self);
-        isProxyScrolling = false;
+let tl3 = gsap.timeline();
+tl3.from('.home-head',{
+    scale: 0.5,
+    duration:1,
+    autoAlpha: 0
+
+});
+let tl4 = gsap.timeline();
+  tl4.from('.section2',{
+    opacity:0.6,
+    scrollTrigger:{
+      trigger:'.section2',
+      scrub:true
       }
-    },
-    onRefresh: killScrub // when the screen resizes, we just want the animation to immediately go to the appropriate spot rather than animating there, so basically kill the scrub.
-  });
-}
+    })
+  // let tl5 = gsap.timeline();
+  // tl5.from('.section3',{
+  //   opacity:0,
+  //   scrollTrigger:{
+  //     trigger:'.section3',
+  //     scrub:true
+  //     }
+  //   })
+
+let tl6 = gsap.timeline();
+  tl6.from('.section3-before',{
+    scale:0,
+    scrollTrigger:{
+      trigger:'.section3-before',
+      scrub:true
+      }
+    })
+   
+  let tl7 = gsap.timeline();
+  tl7.from('.sec-afh',{
+    scale:0,
+    scrollTrigger:{
+      trigger:'.sec-afh',
+      scrub:true
+      }
+    })
+    let tl8 = gsap.timeline();
+  tl8.from('.section4-after',{
+    xPercent:15,
+    scrollTrigger:{
+      trigger:'.section4-after',
+      scrub:1
+      }
+    })  
+ let tl9 = gsap.timeline();
+  tl9.from('.sub-head',{
+    xPercent:-30,
+    scrollTrigger:{
+      trigger:'.sub-head',
+      scrub:1
+      }
+    }) 
+  let tl10 = gsap.timeline();
+  tl10 .from('.sub-head2',{
+    xPercent:-30,
+    scrollTrigger:{
+      trigger:'.sub-head2',
+      scrub:1
+      }
+    })
+  let tl11 = gsap.timeline();
+  tl11 .from('.section5-before',{
+    xPercent:30,
+    scrollTrigger:{
+      trigger:'.section5-before',
+      scrub:1
+      }
+      })
+    
+    let tl12 = gsap.timeline();
+  tl12 .from('.sec5-head2',{
+    xPercent:-30,
+    scrollTrigger:{
+      trigger:'.sec5-head2',
+      scrub:1
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let tl3 = gsap.timeline();
+// tl3.from('.home-head',{
+//     scale: 0.5,
+//     duration:1,
+//     autoAlpha: 0
+    
+// });
+
+// // scrolltrigger for each box
+// gsap.utils.toArray('.box').forEach(box => {
+//   gsap.to(box, {
+//     backgroundColor: '#ffffff',
+//     scrollTrigger: {
+//       trigger: box,
+//       start: 'top center',
+//       toggleActions: 'play none none reverse',
+//       markers: true
+//     }
+//   });
+// });
+    
+
+// function setupLinks(scroller) {
+//   let linkElements = gsap.utils.toArray('.nav a'),
+//       linkTargets = linkElements.map(e => document.querySelector(e.getAttribute("href"))),
+//       linkPositions = [],
+//       calculatePositions = () => {
+//         let offset = gsap.getProperty(scroller, "y");
+//         linkTargets.forEach((e, i) => linkPositions[i] = e.getBoundingClientRect().top - offset);
+//       };
+  
+//   linkElements.forEach((element, i) => {
+    
+//     element.addEventListener("click", e => {
+//       e.preventDefault();
+//       gsap.to(window, {scrollTo: linkPositions[i], ease: "power4", overwrite: true});
+//     });
+//   });
+  
+//   ScrollTrigger.addEventListener("refresh", calculatePositions);
+// }
+
+// setupLinks(container);
