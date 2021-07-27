@@ -1,3 +1,5 @@
+//GSAP Register//
+
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 let con_height = document.querySelector("#scroll-container");
@@ -26,7 +28,7 @@ gsap.to(con_height, {
 
 let tl = gsap.timeline();
 tl.to('#scrollingText', {
-  xPercent: 15,
+  xPercent: 50,
   scrollTrigger: {
     trigger: "#scrollingText",
     scrub: 1
@@ -34,12 +36,13 @@ tl.to('#scrollingText', {
 });
 
 let tl2 = gsap.timeline();
-tl2.to("#scrollingText", {
-  x: 1000,
-  duration: 50,
-  repeat: -1,
-  ease: 'linear'
-});
+tl2.from('.client-img',{
+  scale:1.2,
+  scrollTrigger:{
+    trigger:'.client-img',
+    scrub:true
+    }
+  })
 
 let tl3 = gsap.timeline();
 tl3.from('.home-head', {
@@ -48,14 +51,14 @@ tl3.from('.home-head', {
   autoAlpha: 0
 
 });
-let tl4 = gsap.timeline();
-tl4.from('.section2', {
-  opacity: 0.6,
-  scrollTrigger: {
-    trigger: '.section2',
-    scrub: true
-  }
-})
+let tl5 = gsap.timeline();
+tl5.from('.sec2-img',{
+  scale:1.5,
+  scrollTrigger:{
+    trigger:'.sec2-img',
+    scrub:true
+    }
+  })
 // let tl5 = gsap.timeline();
 // tl5.from('.section3',{
 //   opacity:0,
@@ -124,14 +127,57 @@ tl12.from('.sec5-head2', {
   }
 })
 
+//team animation
+let revealContainers = document.querySelectorAll(".reveal");
+
+revealContainers.forEach((tm_rvl) => {
+  let image = tm_rvl.querySelector("img");
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: tm_rvl,
+      toggleActions: "restart none none reset"
+    }
+  });
+
+  tl.set(tm_rvl, { autoAlpha: 1 });
+  tl.from(tm_rvl, 1.5, {
+    xPercent: -100,
+    ease: Power2.out
+  });
+  tl.from(image, 1.5, {
+    xPercent: 100,
+    scale: 1.3,
+    delay: -1.5,
+    ease: Power2.out
+  });
+});
+
+// images section //
 
 
+let revealCon = document.querySelectorAll(".img_rvl");
 
+revealCon.forEach((cl1) => {
+  let image = cl1.querySelector("img");
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: cl1,
+      toggleActions: "restart none none reset"
+    }
+  });
 
-
-
-
-
+  tl.set(cl1, { autoAlpha: 1 });
+  tl.from(cl1, 1.5, {
+    xPercent: -100,
+    ease: Power2.out
+  });
+  tl.from(image, 1.5, {
+    xPercent: 100,
+    scale: 1.3,
+    delay: -1.5,
+    ease: Power2.out
+  });
+});
 
 
 
