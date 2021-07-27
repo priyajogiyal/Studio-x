@@ -135,15 +135,20 @@ revealContainers.forEach((tm_rvl) => {
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: tm_rvl,
-      toggleActions: "restart none none reset"
+      // toggleActions: "restart none none reset"
+      scrub:true
     }
   });
 
-  tl.set(tm_rvl, { autoAlpha: 1 });
+  tl.set(tm_rvl, { 
+    autoAlpha: 1 
+  });
+
   tl.from(tm_rvl, 1.5, {
     xPercent: -100,
     ease: Power2.out
   });
+
   tl.from(image, 1.5, {
     xPercent: 100,
     scale: 1.3,
@@ -162,7 +167,7 @@ revealCon.forEach((cl1) => {
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: cl1,
-      toggleActions: "restart none none reset"
+      scrub: true
     }
   });
 
